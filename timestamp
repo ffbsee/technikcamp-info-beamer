@@ -1,0 +1,80 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import json
+from calendar import timegm
+import dateutil.parser
+
+def parse(datestring):
+    return dateutil.parser.parse(datestring)
+
+def timestamp(dt):
+    return timegm(dt.timetuple()) + dt.microsecond / 1000000.
+
+with open('events.json') as jsf:
+    events = json.load(jsf)
+
+for event in events:
+    if event[0] == 'event':
+        d = event[2][1]
+        ts = timestamp(parse(d))
+        event.append([u'timestamp', ts])
+
+def starttime(event):
+    if event[0] == 'event':
+        return event[-1][1]
+    else:
+        return 0
+
+events = sorted(events, key=starttime)
+
+eventdata = []
+
+room_map = {
+    'Lecture Room': 'LR',
+    'Movie Room': 'MR',
+    'Workshop Room': 'WR',
+    'Hackcenter': 'HC',
+    'Hackcenter (Outdoor)': 'OD',
+    'Aula der BFH': 'BFH',
+    u'Workshop Raum im Gartenbaugeb\xe4ude': 'GB',
+    u'woanders': '??',
+    u'Gro\xdfer Saal': 'SA',
+    u'Workshop Raum HBK Geb\xe4ude': 'WS',
+    u'Au\xdfen - Feuerstelle': 'FR',
+    u'Au\xdfen - unterm Vordach': 'DA',
+    u'Vortragssaal HBK Geb\xe4ude': 'HBK'
+}
+
+
+def hex_to_rgb(value):
+    value = value.lstrip('#')
+    lv = len(value)
+    return tuple(int(value[i:i + lv // 3], 16) / 255.0 for i in range(0, lv, lv // 3))
+
+color_map = {
+    'CoSin Orga' : hex_to_rgb('#d4a4e8'),
+    'Hardware' : hex_to_rgb('#91feda'),
+    'Software' : hex_to_rgb('#f4f9cf'),
+    'Unterhaltung' : hex_to_rgb('#cbcee3'),
+    'CCC-CH' : hex_to_rgb('#5a59ac'),
+    'Anderes' : hex_to_rgb('#9cdaf6'),
+    'Essen' : hex_to_rgb('#c9ed7e'),
+    'Making' : hex_to_rgb('#f48268'),
+    'Politik' : hex_to_rgb('#ddcb9f')
+}
+
+for event in events:
+    if event[0] == 'event':
+        ev = {
+            'starttime' : event[3][1],
+            'room' : room_map[event[5][1]],
+            'title' : event[9][1].encode('utf8'),
+            'timestamp' : starttime(event),
+            #'color' : color_map[event[11][1]]
+            'color' : hex_to_rgb('#ddcb9f')
+        }
+        eventdata.append(ev)
+
+with open('events_ts.json', 'w') as jsf:
+    json.dump(eventdata, jsf, ensure_ascii=False)

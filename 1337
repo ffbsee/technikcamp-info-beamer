@@ -1,0 +1,19 @@
+#!/usr/bin/python3
+
+import json
+
+with open('events_ts.json') as jsf:
+    events = json.load(jsf)
+
+events.append({
+    'color': [0.796078431372549, 0.807843137254902, 0.8901960784313725],
+    'timestamp': 1560605820.0,
+    'room': 'HC',
+    'starttime': '13:37',
+    'title': 'Dreizehn Uhr siebenunddreissig',
+    })
+
+events = sorted(events, key=lambda e: e['timestamp'])
+
+with open('events_ts.json', 'w') as jsf:
+    json.dump(events, jsf, ensure_ascii=False)

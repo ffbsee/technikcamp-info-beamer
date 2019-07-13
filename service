@@ -1,0 +1,72 @@
+#!/usr/bin/python3
+
+import sys
+import time
+import socket
+from calendar import timegm
+from datetime import datetime
+import pytz
+
+day0 = datetime(2019, 6, 13, 0, 0, 0)
+
+# Fake time in UTC
+#fake = None
+#fake = datetime(2019, 6, 14, 10, 30, 0)
+#fake = datetime(2019, 6, 14, 15, 30, 0)
+#fake = datetime(2019, 6, 14, 21, 30, 0)
+#fake = datetime(2019, 6, 15, 0, 30, 50)
+#fake = datetime(2019, 6, 15, 6, 14, 50)
+#fake = datetime(2019, 6, 15, 9, 14, 50)
+#fake = datetime(2019, 6, 16, 8, 30, 0)
+#fake = datetime(2019, 6, 16, 12, 30, 0)
+#fake = datetime(2019, 6, 16, 16, 30, 0)
+fake = datetime(2019, 8, 1, 16, 30, 0)
+
+if fake:
+    diff = fake - datetime.utcnow()
+
+met = pytz.timezone("Europe/Zurich")
+
+def current_time():
+    now = datetime.utcnow()
+
+    if fake:
+        now += diff
+
+    now = now.replace(tzinfo=pytz.utc)
+    now = now.astimezone(met)
+    now = now.replace(tzinfo=None)
+
+    timestamp = timegm(now.timetuple()) + now.microsecond / 1000000.
+
+    return now, timestamp
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+def send(data):
+    sock.sendto(bytes(data, 'utf-8'), ('127.0.0.1', 4444))
+    print("SENT >>> ", data, file=sys.stderr)
+
+def send_clock(now, ts):
+    #day = (now.date() - day0.date()).days
+    day = (now - day0).days
+
+    hour = now.hour
+    minute = now.minute
+    second = now.second
+
+    send('technikcamp-info-beamer/day/set:%d' % day)
+    send('technikcamp-info-beamer/hour/set:%d' % hour)
+    send('technikcamp-info-beamer/minute/set:%d' % minute)
+    send('technikcamp-info-beamer/second/set:%d' % second)
+    send('technikcamp-info-beamer/unixtime/set:%d' % ts)
+
+
+def main():
+    while True:
+        now, ts = current_time()
+        send_clock(now, ts)
+        time.sleep(0.25)
+
+if __name__ == "__main__":
+    main()

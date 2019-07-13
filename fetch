@@ -1,0 +1,11 @@
+#!/bin/bash
+
+script_dir="$(dirname "$BASH_SOURCE")"
+
+file="$script_dir/schedule.xml"
+#src='https://www.cosin.ch/fahrplan/2019/schedule.xml'
+src='https://pretalx.ffbsee.de/camp19/schedule/export/schedule.xml'
+
+if curl -o "$file~" --max-filesize 256000 --max-time 15 "$src"; then
+    mv "$file~" "$file"
+fi
