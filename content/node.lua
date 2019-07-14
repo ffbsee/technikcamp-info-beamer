@@ -34,7 +34,8 @@ function get_next_talks(talks)
 
    for idx, talk in ipairs(talks) do
       local starttime = talk['timestamp']
-      if starttime >= unixtime - 300*3 and starttime <= unixtime + 3600*12 then
+--      if starttime >= unixtime - 300*3 and starttime <= unixtime + 3600*12 then
+      if starttime >= unixtime - 300*3 then
          table.insert(next_talks, talk)
       end
    end
@@ -109,14 +110,14 @@ function node.render()
                         '@' .. next_talks[i]["room"],
                         50, 1,1,1,alpha)
 
-      regular_scp:write(xpos + 350, ypos,
+      regular_scp:write(xpos + 340, ypos,
                         '->',
                         50, 1,1,1,alpha)
 
       local tparts = wrap(next_talks[i]["title"], 38)
 
       for _, part in pairs(tparts) do
-         regular_scp:write(xpos + 470, ypos,
+         regular_scp:write(xpos + 450, ypos,
                            part,
                            50, r,g,b,alpha)
          ypos = ypos + ydiff

@@ -2,7 +2,7 @@
 
 import json
 
-with open('events_ts.json') as jsf:
+with open('content/events_ts.json') as jsf:
     events = json.load(jsf)
 
 events.append({
@@ -15,5 +15,5 @@ events.append({
 
 events = sorted(events, key=lambda e: e['timestamp'])
 
-with open('events_ts.json', 'w') as jsf:
+with open('content/events_ts.json', 'w') as jsf:
     json.dump(events, jsf, ensure_ascii=False)

@@ -76,5 +76,5 @@ for event in events:
         }
         eventdata.append(ev)
 
-with open('events_ts.json', 'w') as jsf:
+with open('content/events_ts.json', 'w') as jsf:
     json.dump(eventdata, jsf, ensure_ascii=False)
