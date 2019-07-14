@@ -135,8 +135,8 @@ function node.render()
 
    -- Room lookup table
    regular_scp:write(xpos, 1028,
-                     'LR: Lecture Room  /  MR: Movie Room  /  WR: Workshop Room  /  HC: Hackcenter  /  OD: Outdoor',
-                     30, 1,1,1,alpha)
+   'HBK: Vortr\xe4ge HBK Geb\xe4ude  /  WS: Workshop HBK Geb\xe4ude / FR: Feuerstelle  /  DA: Unterm Vordach  /  GB: Gartenbaugeb\xe4ude',
+    30, 1,1,1,alpha)
 end
 
 
