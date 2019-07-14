@@ -68,18 +68,19 @@ function node.render()
    local xpos = 70
 
    -- Header
-   if second % 12 == 0 then
-      if await == true then
-         await = false
-         frame = frame % #header + 1
-      end
-   else
-      await = true
-   end
+--   if second % 12 == 0 then
+--      if await == true then
+--         await = false
+--         frame = frame % #header + 1
+ --     end
+--   else
+--      await = true
+--   end
 
-   header[frame]:draw(0, 0, 1920, 580)
+--   header[frame]:draw(0, 0, 1920, 580)
+   header:draw(0, 0, 1920, 580)
 
-   bold_twc:write(xpos, 20, 'Chaos Singularity', 120, 1,1,1,alpha)
+   bold_twc:write(xpos, 20, 'Technik Camp', 120, 1,1,1,alpha)
    bold_twc:write(xpos, 170, '2019', 120, 1,1,1,alpha)
 
 
