@@ -7,10 +7,10 @@ from calendar import timegm
 from datetime import datetime
 import pytz
 
-day0 = datetime(2019, 6, 13, 0, 0, 0)
+day0 = datetime(2019, 8, 1, 0, 0, 0)
 
 # Fake time in UTC
-#fake = None
+fake = None
 #fake = datetime(2019, 6, 14, 10, 30, 0)
 #fake = datetime(2019, 6, 14, 15, 30, 0)
 #fake = datetime(2019, 6, 14, 21, 30, 0)
@@ -20,7 +20,7 @@ day0 = datetime(2019, 6, 13, 0, 0, 0)
 #fake = datetime(2019, 6, 16, 8, 30, 0)
 #fake = datetime(2019, 6, 16, 12, 30, 0)
 #fake = datetime(2019, 6, 16, 16, 30, 0)
-fake = datetime(2019, 8, 1, 16, 30, 0)
+#fake = datetime(2019, 8, 1, 16, 30, 0)
 
 if fake:
     diff = fake - datetime.utcnow()
@@ -55,11 +55,11 @@ def send_clock(now, ts):
     minute = now.minute
     second = now.second
 
-    send('technikcamp-info-beamer/day/set:%d' % day)
-    send('technikcamp-info-beamer/hour/set:%d' % hour)
-    send('technikcamp-info-beamer/minute/set:%d' % minute)
-    send('technikcamp-info-beamer/second/set:%d' % second)
-    send('technikcamp-info-beamer/unixtime/set:%d' % ts)
+    send('content/day/set:%d' % day)
+    send('content/hour/set:%d' % hour)
+    send('content/minute/set:%d' % minute)
+    send('content/second/set:%d' % second)
+    send('content/unixtime/set:%d' % ts)
 
 
 def main():
