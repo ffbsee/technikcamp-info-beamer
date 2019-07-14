@@ -7,33 +7,8 @@ local regular_twc = resource.load_font("Tw Cen MT.ttf")
 local bold_scp = resource.load_font("bold.ttf")
 local regular_scp = resource.load_font("regular.ttf")
 
---local header = resource.load_image("header.png")
-local header = {
-   resource.load_image("header_0.png"),
-   resource.load_image("header_1.png"),
-   resource.load_image("header_2.png"),
-   resource.load_image("header_3.png"),
-   resource.load_image("header_4.png"),
-   resource.load_image("header_5.png"),
-   resource.load_image("header_6.png"),
-   resource.load_image("header_7.png"),
-   resource.load_image("header_8.png"),
-   resource.load_image("header_9.png"),
-   resource.load_image("header_10.png"),
-   resource.load_image("header_11.png"),
-   resource.load_image("header_12.png"),
-   resource.load_image("header_13.png"),
-   resource.load_image("header_14.png"),
-   resource.load_image("header_15.png"),
-   resource.load_image("header_16.png"),
-   resource.load_image("header_17.png"),
-   resource.load_image("header_18.png"),
-   resource.load_image("header_19.png"),
-   resource.load_image("header_20.png"),
-   resource.load_image("header_21.png"),
-   resource.load_image("header_22.png"),
-   resource.load_image("header_23.png")
-}
+local header = resource.load_image("header.png")
+
 local frame = 1
 local await = true
 
