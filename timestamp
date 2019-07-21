@@ -43,7 +43,9 @@ room_map = {
     u'Workshop Raum HBK Geb\xe4ude': 'WS',
     u'Au\xdfen - Feuerstelle': 'FR',
     u'Au\xdfen - unterm Vordach': 'DA',
-    u'Vortragssaal HBK Geb\xe4ude': 'HBK'
+    u'Vortragssaal HBK Geb\xe4ude': 'HBK',
+    u'HBK': 'HBK'
+
 }
 
 
