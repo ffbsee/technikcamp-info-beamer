@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 import json
@@ -31,21 +31,14 @@ events = sorted(events, key=starttime)
 eventdata = []
 
 room_map = {
-    'Lecture Room': 'LR',
-    'Movie Room': 'MR',
-    'Workshop Room': 'WR',
-    'Hackcenter': 'HC',
-    'Hackcenter (Outdoor)': 'OD',
-    'Aula der BFH': 'BFH',
-    u'Workshop Raum im Gartenbaugeb\xe4ude': 'GB',
     u'woanders': '??',
+    u'Workshop Raum im Gartenbau': 'GB',
     u'Gro\xdfer Saal': 'SA',
-    u'Workshop Raum HBK Geb\xe4ude': 'WS',
+    u'Workshop Raum HBK': 'WS',
     u'Au\xdfen - Feuerstelle': 'FR',
     u'Au\xdfen - unterm Vordach': 'DA',
-    u'Vortragssaal HBK Geb\xe4ude': 'HBK',
+    u'Vortragssaal HBK': 'HBK',
     u'HBK': 'HBK'
-
 }
 
 
@@ -71,12 +64,12 @@ for event in events:
         ev = {
             'starttime' : event[3][1],
             'room' : room_map[event[5][1]],
-            'title' : event[9][1].encode('utf8'),
+            'title' : event[9][1],
             'timestamp' : starttime(event),
             #'color' : color_map[event[11][1]]
             'color' : hex_to_rgb('#ddcb9f')
         }
         eventdata.append(ev)
 
-with open('content/events_ts.json', 'w') as jsf:
+with open('content/events_ts.json', 'w', encoding='utf-8') as jsf:
     json.dump(eventdata, jsf, ensure_ascii=False)

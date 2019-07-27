@@ -32,7 +32,7 @@ end
 function get_next_talks(talks)
     local next_talks = {}
 
-    for idx, talk in ipairs(talks) do
+    for idx, talk in pairs(talks) do
         local starttime = talk['timestamp']
 --        --> only display the next few  titles
 --        if starttime >= unixtime - 300*3 and starttime <= unixtime + 3600*12 then
@@ -68,7 +68,7 @@ end
 function node.render()
     gl.clear(0,0,0,1)
 
-    local xpos = 70
+    local xpos = 60
 
     -- Header
     header:draw(0, 0, 1920, 580)
@@ -83,12 +83,12 @@ function node.render()
 
 
     -- Next talks
-    bold_scp:write(xpos, 360, 'Next Blocks in Chain:', 60, 1,1,1,alpha)
+    bold_scp:write(xpos, 315, 'Next Blocks in Chain:', 60, 1,1,1,alpha)
 
-    local ypos = 460
-    local ydiff = 70
+    local ypos = 400
+    local ydiff = 66
 
-    for i=1, math.min(#next_talks, 8) do
+    for i=1, math.min(#next_talks, 9) do
         -- font color
         local r = next_talks[i]['color'][1]
         local g = next_talks[i]['color'][2]
@@ -106,34 +106,35 @@ function node.render()
             '->',
             50, 1,1,1,alpha)
 
-        local tparts = wrap(next_talks[i]["title"], 38)
+        local tparts = wrap(next_talks[i]["title"], 42)
 
         for _, part in pairs(tparts) do
             regular_scp:write(xpos + 450, ypos,
                 part,
-                50, r,g,b,alpha)
+                49, r,g,b,alpha)
             ypos = ypos + ydiff
 
          -- Cut of if too large for screen
-            if ypos > 1000 then
+            if ypos > 950 then
                 break
             end
         end
 
         -- Cut of if too large for screen
-        if ypos > 1000 then
+        if ypos > 950 then
             break
         end
     end
 
     -- Room lookup table
     regular_scp:write(xpos, 1010,
-        'HBK: Vortragssaal HBK Gebäude - Erdgeschoss  /  WS: Workshopraum HBK Gebäude - Obergeschoss / FR: Feuerstelle  /  DA: Unterm Vordach',
-        24.5, 1,1,1,alpha)
+        ' HBK: Vortragssaal HBK Gebäude - Erdgeschoss  / FR: Feuerstelle  /  GB : Workshop Raum im Gartenbau',
+        30, 1,1,1,alpha)
     regular_scp:write(xpos, 1050,
-        'HBK: Vortragssaal HBK Gebäude - Erdgeschoss  /  WS: Workshopraum HBK Gebäude - Obergeschoss / FR: Feuerstelle  /  DA: Unterm Vordach',
-        24.5, 1,1,1,alpha)
+        'WS: Workshopraum HBK Gebäude - Obergeschoss / SA: Großer Saal  /  DA: Unterm Vordach  / ??: Woanders',
+        30, 1,1,1,alpha)
 end
+
 
 
 util.file_watch("events_ts.json",
